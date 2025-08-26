@@ -1,0 +1,70 @@
+(GATSol) songguanjie@hd-Standard-PC-i440FX-PIIX-1996:~/Programs/demo/demo10_BasedOn_d1$ python d1_train.py
+data loading...............
+data loaded !!!!!!!!!!
+Training start...............
+Epoch: 1, Train_Loss: 0.08595156, Test_Loss: 0.08127369, ValLoss: 0.08982533, Val1Loss: 0.09325756
+Epoch: 2, Train_Loss: 0.06981508, Test_Loss: 0.06379948, ValLoss: 0.07794301, Val1Loss: 0.07209705
+Epoch: 3, Train_Loss: 0.06567956, Test_Loss: 0.05919735, ValLoss: 0.06019940, Val1Loss: 0.06824975
+Epoch: 4, Train_Loss: 0.06024950, Test_Loss: 0.05420734, ValLoss: 0.06267360, Val1Loss: 0.06140314
+Epoch: 5, Train_Loss: 0.05747455, Test_Loss: 0.05199484, ValLoss: 0.05932163, Val1Loss: 0.05699199
+Epoch: 6, Train_Loss: 0.05690699, Test_Loss: 0.05144432, ValLoss: 0.05398054, Val1Loss: 0.05970825
+Epoch: 7, Train_Loss: 0.05566935, Test_Loss: 0.05149813, ValLoss: 0.06553507, Val1Loss: 0.05714492
+Epoch: 8, Train_Loss: 0.05318729, Test_Loss: 0.04873575, ValLoss: 0.05090890, Val1Loss: 0.05763590
+Epoch: 9, Train_Loss: 0.05109142, Test_Loss: 0.04701973, ValLoss: 0.05006110, Val1Loss: 0.05652152
+Epoch: 10, Train_Loss: 0.05316300, Test_Loss: 0.04882146, ValLoss: 0.04863094, Val1Loss: 0.06363698
+Epoch: 11, Train_Loss: 0.05187712, Test_Loss: 0.05000788, ValLoss: 0.05564459, Val1Loss: 0.05494904
+Epoch: 12, Train_Loss: 0.04779561, Test_Loss: 0.04547472, ValLoss: 0.04724996, Val1Loss: 0.05666319
+Epoch: 13, Train_Loss: 0.04682003, Test_Loss: 0.04493533, ValLoss: 0.04816794, Val1Loss: 0.05610830
+Epoch: 14, Train_Loss: 0.04678161, Test_Loss: 0.04600231, ValLoss: 0.04913201, Val1Loss: 0.05304697
+Epoch: 15, Train_Loss: 0.04539740, Test_Loss: 0.04493881, ValLoss: 0.04801939, Val1Loss: 0.05517659
+Epoch: 16, Train_Loss: 0.05023952, Test_Loss: 0.05068359, ValLoss: 0.05614520, Val1Loss: 0.05283891
+Epoch: 17, Train_Loss: 0.04401915, Test_Loss: 0.04484654, ValLoss: 0.04739565, Val1Loss: 0.05152665
+Epoch: 18, Train_Loss: 0.04654378, Test_Loss: 0.04814158, ValLoss: 0.05284139, Val1Loss: 0.05286338
+Epoch: 19, Train_Loss: 0.04347268, Test_Loss: 0.04526332, ValLoss: 0.04759316, Val1Loss: 0.05599534
+Epoch: 20, Train_Loss: 0.04187371, Test_Loss: 0.04395681, ValLoss: 0.04536265, Val1Loss: 0.05653250
+Epoch: 21, Train_Loss: 0.04202430, Test_Loss: 0.04422812, ValLoss: 0.04666518, Val1Loss: 0.05473514
+Epoch: 22, Train_Loss: 0.04088840, Test_Loss: 0.04400419, ValLoss: 0.04535716, Val1Loss: 0.05690848
+Epoch: 23, Train_Loss: 0.04101261, Test_Loss: 0.04341913, ValLoss: 0.04504452, Val1Loss: 0.06043377
+Epoch: 24, Train_Loss: 0.04319870, Test_Loss: 0.04564900, ValLoss: 0.04600883, Val1Loss: 0.05977799
+Epoch: 25, Train_Loss: 0.03984751, Test_Loss: 0.04373406, ValLoss: 0.04563453, Val1Loss: 0.05608932
+Epoch: 26, Train_Loss: 0.03874911, Test_Loss: 0.04297078, ValLoss: 0.04556260, Val1Loss: 0.05553474
+Epoch: 27, Train_Loss: 0.03815323, Test_Loss: 0.04309315, ValLoss: 0.04505519, Val1Loss: 0.05617184
+Epoch: 28, Train_Loss: 0.03962996, Test_Loss: 0.04583093, ValLoss: 0.04768418, Val1Loss: 0.05266913
+Epoch: 29, Train_Loss: 0.04077933, Test_Loss: 0.04542855, ValLoss: 0.04797727, Val1Loss: 0.06248712
+Epoch: 30, Train_Loss: 0.04069081, Test_Loss: 0.04607735, ValLoss: 0.04991285, Val1Loss: 0.06752830
+Epoch: 31, Train_Loss: 0.03772312, Test_Loss: 0.04487648, ValLoss: 0.04676000, Val1Loss: 0.05512213
+Epoch: 32, Train_Loss: 0.03683046, Test_Loss: 0.04359614, ValLoss: 0.04631386, Val1Loss: 0.06193120
+Epoch: 33, Train_Loss: 0.03602392, Test_Loss: 0.04347393, ValLoss: 0.04556692, Val1Loss: 0.05859156
+Epoch: 34, Train_Loss: 0.03644891, Test_Loss: 0.04495800, ValLoss: 0.04639321, Val1Loss: 0.05357024
+Epoch: 35, Train_Loss: 0.03576723, Test_Loss: 0.04403382, ValLoss: 0.04580542, Val1Loss: 0.05640845
+Epoch: 36, Train_Loss: 0.03532669, Test_Loss: 0.04372775, ValLoss: 0.04638452, Val1Loss: 0.06124168
+Epoch: 37, Train_Loss: 0.03456898, Test_Loss: 0.04367189, ValLoss: 0.04597447, Val1Loss: 0.05787945
+Epoch: 38, Train_Loss: 0.03579369, Test_Loss: 0.04533121, ValLoss: 0.04755022, Val1Loss: 0.05516996
+Epoch: 39, Train_Loss: 0.03462040, Test_Loss: 0.04348839, ValLoss: 0.04759035, Val1Loss: 0.06346676
+Epoch: 40, Train_Loss: 0.03505371, Test_Loss: 0.04483135, ValLoss: 0.04677400, Val1Loss: 0.06399058
+Epoch: 41, Train_Loss: 0.03381192, Test_Loss: 0.04520643, ValLoss: 0.04620193, Val1Loss: 0.05417871
+Epoch: 42, Train_Loss: 0.03858915, Test_Loss: 0.05040624, ValLoss: 0.04992328, Val1Loss: 0.05057434
+Epoch: 43, Train_Loss: 0.03317157, Test_Loss: 0.04533196, ValLoss: 0.04555273, Val1Loss: 0.05272826
+Epoch: 44, Train_Loss: 0.03371536, Test_Loss: 0.04589894, ValLoss: 0.04643266, Val1Loss: 0.05436984
+Epoch: 45, Train_Loss: 0.03788725, Test_Loss: 0.05093730, ValLoss: 0.05058934, Val1Loss: 0.05288928
+Epoch: 46, Train_Loss: 0.03249551, Test_Loss: 0.04452747, ValLoss: 0.04804509, Val1Loss: 0.06121363
+Epoch: 47, Train_Loss: 0.03137856, Test_Loss: 0.04474375, ValLoss: 0.04638887, Val1Loss: 0.05622242
+Epoch: 48, Train_Loss: 0.03293243, Test_Loss: 0.04688190, ValLoss: 0.04740092, Val1Loss: 0.05453381
+Epoch: 49, Train_Loss: 0.03111714, Test_Loss: 0.04496280, ValLoss: 0.04631482, Val1Loss: 0.05595264
+Epoch: 50, Train_Loss: 0.03165545, Test_Loss: 0.04538893, ValLoss: 0.05013141, Val1Loss: 0.06570351
+Epoch: 51, Train_Loss: 0.03794279, Test_Loss: 0.05331906, ValLoss: 0.05205590, Val1Loss: 0.05279342
+Epoch: 52, Train_Loss: 0.03142918, Test_Loss: 0.04699385, ValLoss: 0.04651629, Val1Loss: 0.05294918
+Epoch: 53, Train_Loss: 0.03062700, Test_Loss: 0.04708538, ValLoss: 0.04670500, Val1Loss: 0.05747676
+Epoch: 54, Train_Loss: 0.03147079, Test_Loss: 0.04602172, ValLoss: 0.05300483, Val1Loss: 0.07129994
+Epoch: 55, Train_Loss: 0.02993722, Test_Loss: 0.04616383, ValLoss: 0.04673904, Val1Loss: 0.05600554
+Epoch: 56, Train_Loss: 0.02910259, Test_Loss: 0.04584705, ValLoss: 0.04719385, Val1Loss: 0.05736561
+Epoch: 57, Train_Loss: 0.02895505, Test_Loss: 0.04529792, ValLoss: 0.04697624, Val1Loss: 0.05769021
+Epoch: 58, Train_Loss: 0.03032208, Test_Loss: 0.04804202, ValLoss: 0.04760076, Val1Loss: 0.05570043
+Epoch: 59, Train_Loss: 0.03416320, Test_Loss: 0.04972641, ValLoss: 0.05818961, Val1Loss: 0.07441292
+Epoch: 60, Train_Loss: 0.03102056, Test_Loss: 0.04743629, ValLoss: 0.05524036, Val1Loss: 0.07019810
+test loss: 0.04297078, R2: 0.58457893, Pearson: 0.76646723
+val loss: 0.04556260, R2_val: 0.47561149, Pearson_val: 0.69273835
+val1 loss: 0.05553475, R2_val1: 0.42920780, Pearson_val1: 0.68259364
+Accuracy: 0.81060606, Precision: 0.82089552, Recall: 0.74074074, F1: 0.77876106, AUC: 0.90465722, MCC: 0.61643651, Sensitivity: 0.74074074, Specificity: 0.86776860
+Accuracy: 0.79629630, Precision: 0.85915493, Recall: 0.83561644, F1: 0.84722222, AUC: 0.85949119, MCC: 0.54231402, Sensitivity: 0.83561644, Specificity: 0.71428571
+Accuracy: 0.78436658, Precision: 0.77178423, Recall: 0.88151659, F1: 0.82300885, AUC: 0.83658175, MCC: 0.55823214, Sensitivity: 0.88151659, Specificity: 0.65625000
