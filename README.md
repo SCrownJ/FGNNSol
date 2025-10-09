@@ -47,6 +47,7 @@ The trained FGNNSol model for predicting protein solubility is located at `./che
 
 Our training set, test set, and evaluation set data are stored in `./dataset/`. The .pkl files located in the pkl folder can be directly used for training, testing, and prediction.
 
+The pkl folder of training set, which contains a large number of large files, is stored on Google Drive: https://drive.google.com/drive/folders/11-Zxt0rXgfxb635Yz043xhVP7FMlrTni?usp=drive_link
 
 # Re-train the model
 In the `./dataset/` directory, we have provided the original data (stored in .csv files) and the data with all features extracted, which can be directly used for training and testing (in the .pkl files located in the pkl folder). You can either directly use our .pkl file for training, or extract features yourself for training. 
