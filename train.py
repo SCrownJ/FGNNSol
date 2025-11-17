@@ -37,13 +37,15 @@ def set_seed(seed):
 set_seed(2024)
 
 print("data loading...............")
-train_dataset = []  # data数据对象的list集合
-test_dataset = []  # data数据对象的list集合
-val_dataset = []  # data数据对象的list集合
+train_dataset = []
+test_dataset = []
+val_dataset = []
+eval_dataset = []
 
 train_path = "./dataset/train_data/pkl"
 test_path = "./dataset/test_data/pkl"
 val_path = "./dataset/val1_scere_data/pkl"
+eval_path = "./dataset/eval_data/pkl"
 
 for filename in os.listdir(train_path):
     file_path = os.path.join(train_path, filename)
@@ -63,17 +65,22 @@ for filename in os.listdir(val_path):
         data = pickle.load(f).to(torch.device('cuda'))
     val_dataset.append(data)
 
-# 打乱数据集的顺序
+for filename in os.listdir(eval_path):
+    file_path = os.path.join(eval_path, filename)
+    with open(file_path, 'rb') as f:
+        data = pickle.load(f).to(torch.device('cuda'))
+    eval_dataset.append(data)
+
 random.shuffle(train_dataset)
 
-batch_size = 16
+batch_size = 32
 train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
 test_loader = DataLoader(test_dataset, batch_size=batch_size, shuffle=False)
 val_loader = DataLoader(val_dataset, batch_size=batch_size, shuffle=False)
+eval_loader = DataLoader(eval_dataset, batch_size=batch_size, shuffle=False)  # 新增eval_loader
 print("data loaded !!!!!!!!!!")
 
 
-# 定义训练函数
 def train(model, device, loader, optimizer, criterion):
     model.train()
 
@@ -91,7 +98,6 @@ def train(model, device, loader, optimizer, criterion):
     return avg_loss
 
 
-# 定义测试函数
 def test(model, device, loader, criterion):
     model.eval()
     loss = 0
@@ -119,89 +125,6 @@ def predictions(model, device, loader):
     return y_hat, y_true
 
 
-# 设置训练参数
-device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-node_dim = 1181 + 184
-edge_in_channels = 450
-extra_feat_dim = 16
-hidden_channels = 256
-dropout = 0
-gcn_num_layers = 4
-gat_num_layers = 2
-
-# 创建模型实例
-model = FGNNSol(node_dim, edge_in_channels, hidden_channels, extra_feat_dim, gcn_num_layers, gat_num_layers, dropout, device).to(device)
-
-# 初始化参数
-for m in model.modules():
-    if isinstance(m, nn.Linear):
-        nn.init.kaiming_uniform_(m.weight)
-
-# 定义损失函数和优化器
-initial_lr = 0.00001
-epochs = 60  # 训练轮数
-criterion = nn.MSELoss(reduction='sum')
-optimizer = optim.Adam(model.parameters(), lr=initial_lr)
-
-# 开始训练和测试
-best_loss = float('inf')  # 初始最佳损失设为无穷大
-
-print('Training start...............')
-model.train()
-lr = initial_lr
-for epoch in range(1, epochs + 1):
-    if epoch % 15 == 0:
-        lr = lr * 0.75
-        for param_group in optimizer.param_groups:
-            param_group['lr'] = lr
-    if epoch > 35:
-      lr = 0.1 * initial_lr
-      for param_group in optimizer.param_groups:
-            param_group['lr'] = lr
-    optimizer = optim.Adam(model.parameters(), lr=lr)
-    train(model, device, train_loader, optimizer, criterion)
-    train_accuracy = test(model, device, train_loader, criterion)
-    test_accuracy = test(model, device, test_loader, criterion)
-    val_accuracy = test(model, device, val_loader, criterion)
-    if test_accuracy < best_loss:
-        best_loss = test_accuracy
-        torch.save(model.state_dict(), "./check_point/best_model/best_model.pt")
-    print(
-        f'Epoch: {epoch}, Train_Loss: {train_accuracy:.8f}, Test_Loss: {test_accuracy:.8f}, ValLoss: {val_accuracy:.8f}')
-
-
-model.load_state_dict(torch.load("./check_point/best_model/best_model.pt"))
-model.eval()
-test_loss = test(model, device, test_loader, criterion)
-val_loss = test(model, device, val_loader, criterion)
-
-y_hat, y_true = predictions(model, device, test_loader)
-val_hat, val_true = predictions(model, device, val_loader)
-
-from sklearn import metrics
-from scipy.stats import pearsonr
-
-r2 = metrics.r2_score(y_true.cpu(), y_hat.cpu())
-r2_val = metrics.r2_score(val_true.cpu(), val_hat.cpu())
-pearson = pearsonr(y_true.cpu(), y_hat.cpu())
-pearson_val = pearsonr(val_true.cpu(), val_hat.cpu())
-print(f'test loss: {test_loss:.8f}, R2: {r2:.8f}, Pearson: {pearson[0]:.8f}')
-print(f'val loss: {val_loss:.8f}, R2_val: {r2_val:.8f}, Pearson_val: {pearson_val[0]:.8f}')
-
-y_hat = y_hat.cpu().numpy()
-y_true = y_true.cpu().numpy()
-val_hat = val_hat.cpu().numpy()
-val_true = val_true.cpu().numpy()
-
-binary_pred = [1 if pred >= 0.5 else 0 for pred in y_hat]
-binary_true = [1 if true >= 0.5 else 0 for true in y_true]
-
-# 输出测试集ROC曲线横纵坐标
-fpr, tpr, thresholds = roc_curve(binary_true, y_hat)
-df = pd.DataFrame({'fpr': fpr, 'tpr': tpr})
-df.to_csv("./check_point/best_model/Rov.csv", index=False)
-
-
 def binary_evaluate(y_true, y_hat, cut_off=0.5):
     binary_pred = [1 if pred >= cut_off else 0 for pred in y_hat]
     binary_true = [1 if true >= cut_off else 0 for true in y_true]
@@ -215,8 +138,98 @@ def binary_evaluate(y_true, y_hat, cut_off=0.5):
     sensitivity = 1.0 * TP / (TP + FN)
     specificity = 1.0 * TN / (FP + TN)
     print(
-        f'Accuracy: {binary_acc:.8f}, Precision: {precision:.8f}, Recall: {recall:.8f}, F1: {f1:.8f}, AUC: {auc:.8f}, MCC: {mcc:.8f}, Sensitivity: {sensitivity:.8f}, Specificity: {specificity:.8f}')
+        f'Accuracy: {binary_acc:.8f}, Precision: {precision:.8f}, Recall: {recall:.8f}, '
+        f'F1: {f1:.8f}, AUC: {auc:.8f}, MCC: {mcc:.8f}, '
+        f'Sensitivity: {sensitivity:.8f}, Specificity: {specificity:.8f}'
+    )
 
 
-binary_evaluate(y_true, y_hat, cut_off=0.5)
-binary_evaluate(val_true, val_hat, cut_off=0.5)
+def evaluate_dataset(model, device, loader, dataset_name):
+
+    loss = test(model, device, loader, criterion)
+
+    y_hat, y_true = predictions(model, device, loader)
+
+    r2 = metrics.r2_score(y_true.cpu(), y_hat.cpu())
+    pearson = pearsonr(y_true.cpu(), y_hat.cpu())
+    print(f'{dataset_name} loss: {loss:.8f}, R2: {r2:.8f}, Pearson: {pearson[0]:.8f}')
+
+    y_hat_np = y_hat.cpu().numpy()
+    y_true_np = y_true.cpu().numpy()
+
+    print(f'{dataset_name} binary evaluation:')
+    binary_evaluate(y_true_np, y_hat_np, cut_off=0.5)
+    print('---')
+    return y_hat_np, y_true_np
+
+
+device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+node_dim = 1181 + 184
+edge_in_channels = 450
+extra_feat_dim = 16
+hidden_channels = 256
+dropout = 0
+gcn_num_layers = 4
+gat_num_layers = 2
+
+model = FGNNSol(node_dim, edge_in_channels, hidden_channels, extra_feat_dim, gcn_num_layers, gat_num_layers, dropout,
+                device).to(device)
+
+for m in model.modules():
+    if isinstance(m, nn.Linear):
+        nn.init.kaiming_uniform_(m.weight)
+
+initial_lr = 0.00001 
+epochs = 80  # 训练轮数
+criterion = nn.MSELoss(reduction='sum')
+optimizer = optim.Adam(model.parameters(), lr=initial_lr)
+
+best_loss = float('inf')
+
+print('Training start...............')
+model.train()
+lr = initial_lr
+for epoch in range(1, epochs + 1):
+
+    if epoch % 15 == 0:
+        lr = lr * 0.75
+        for param_group in optimizer.param_groups:
+            param_group['lr'] = lr
+    if epoch > 65:
+        lr = 0.1 * initial_lr
+        for param_group in optimizer.param_groups:
+            param_group['lr'] = lr
+    optimizer = optim.Adam(model.parameters(), lr=lr)
+
+    train(model, device, train_loader, optimizer, criterion)
+
+    train_loss = test(model, device, train_loader, criterion)
+    eval_loss = test(model, device, eval_loader, criterion)
+    test_loss = test(model, device, test_loader, criterion)
+    val_loss = test(model, device, val_loader, criterion)
+
+    if eval_loss < best_loss:
+        best_loss = eval_loss
+        torch.save(model.state_dict(), "./check_point/best_model.pt")
+
+    print(
+        f'Epoch: {epoch}, Train_Loss: {train_loss:.8f}, Eval_Loss: {eval_loss:.8f}, '
+        f'Test_Loss: {test_loss:.8f}, ValLoss: {val_loss:.8f}'
+    )
+
+model.load_state_dict(torch.load("./check_point/best_model.pt"))
+model.eval()
+
+from sklearn import metrics
+from scipy.stats import pearsonr
+
+print("\nFinal evaluation results:")
+eval_hat, eval_true = evaluate_dataset(model, device, eval_loader, "Eval")
+test_hat, test_true = evaluate_dataset(model, device, test_loader, "Test")
+val_hat, val_true = evaluate_dataset(model, device, val_loader, "Val")
+
+binary_pred_test = [1 if pred >= 0.5 else 0 for pred in test_hat]
+binary_true_test = [1 if true >= 0.5 else 0 for true in test_true]
+fpr, tpr, thresholds = roc_curve(binary_true_test, test_hat)
+df = pd.DataFrame({'fpr': fpr, 'tpr': tpr})
+df.to_csv("./check_point/Roc.csv", index=False)
