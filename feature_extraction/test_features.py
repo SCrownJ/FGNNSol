@@ -59,6 +59,26 @@ def process_file(file):
         pkl_path = os.path.join(pkl_directory, file + "-model_v4.pkl")
         extra_feat_path = os.path.join(extra_feat_directory, file + ".npy")
 
+        # 处理未找到的文件（这里指原csv文件被分到eval中的条目）
+        required_files = {
+            "PDB": pdb_path,
+            "FASTA": fasta_path,
+            "ESM": esmc_path,
+            "DSSP": dssp_path,
+            "ExtraFeat": extra_feat_path
+        }
+
+        missing_files = []
+        for file_type, file_path in required_files.items():
+            if not os.path.exists(file_path):
+                missing_files.append(f"{file_type}: {file_path}")
+
+        if missing_files:
+            logging.warning(f"跳过 {file}，缺失文件: {', '.join(missing_files)}")
+            print(f"警告: 跳过 {file}，缺失文件")
+            return  # 跳过当前文件，继续处理下一个
+        # 处理未找到的文件（这里指原csv文件被分到eval中的条目）
+
         # 1. 从PDB文件提取原子坐标
         with open(pdb_path, "r") as f:
             pdb_lines = f.readlines()
