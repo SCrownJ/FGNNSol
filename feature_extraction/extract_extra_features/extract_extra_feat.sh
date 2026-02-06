@@ -1,6 +1,6 @@
 #!/bin/bash
 
-PYTHON_CMD="python3"
+PYTHON_CMD="python"
 
 if ! command -v $PYTHON_CMD &> /dev/null; then
     echo "Error: Python environment not found. Please check if Python is installed or modify the PYTHON_CMD variable in the script."
