@@ -124,6 +124,7 @@ if __name__ == "__main__":
     groups = [
         ("../../dataset/train_data/fastaTrain", "train_extra_feat.csv"),
         ("../../dataset/test_data/fastaTest", "test_extra_feat.csv"),
+        ("../../dataset/eval_data/fastaEval", "eval_extra_feat.csv"),
         ("../../dataset/val1_scere_data/fastaVal1_scere", "val_extra_feat.csv")
     ]
 
