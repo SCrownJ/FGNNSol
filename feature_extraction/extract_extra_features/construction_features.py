@@ -86,6 +86,7 @@ if __name__ == "__main__":
     path_pairs = [
         ("./train_txt", "train_extra_feat.csv"),
         ("./test_txt", "test_extra_feat.csv"),
+        ("./eval_txt", "eval_extra_feat.csv"),
         ("./val_txt", "val_extra_feat.csv")
     ]
 
