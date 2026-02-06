@@ -8,6 +8,7 @@ def process_pqr(session):
     path_pairs = [
         ("./train_pqr", "./train_txt"),
         ("./test_pqr", "./test_txt"),
+        ("./eval_pqr", "./eval_txt"),
         ("./val_pqr", "./val_txt")
     ]
 
