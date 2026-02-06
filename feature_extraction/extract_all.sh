@@ -1,8 +1,9 @@
 #!/bin/bash
 
-# Define paths to the three Python scripts
+# Define paths to the four Python scripts
 TRAIN_SCRIPT="train_features.py"
 TEST_SCRIPT="test_features.py"
+EVAL_SCRIPT="eval_features.py"
 VAL_SCRIPT="val_features.py"
 
 # Check if a script file exists
@@ -16,6 +17,7 @@ check_script() {
 # Verify all required scripts exist
 check_script "$TRAIN_SCRIPT"
 check_script "$TEST_SCRIPT"
+check_script "$EVAL_SCRIPT"
 check_script "$VAL_SCRIPT"
 
 # Function to run a script with status checks
@@ -38,6 +40,7 @@ run_script() {
 # Run all feature extraction scripts in sequence
 run_script "$TRAIN_SCRIPT" "training set feature extraction"
 run_script "$TEST_SCRIPT" "test set feature extraction"
+run_script "$EVAL_SCRIPT" "evaluation set feature extraction"
 run_script "$VAL_SCRIPT" "validation set feature extraction"
 
 echo "All feature extraction scripts have been executed successfully."
