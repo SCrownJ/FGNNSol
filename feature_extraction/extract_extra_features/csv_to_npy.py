@@ -22,6 +22,7 @@ if __name__ == "__main__":
     csv_output_pairs = [
         ("train_extra_feat.csv", "../../dataset/train_data/extra_feat"),
         ("test_extra_feat.csv", "../../dataset/test_data/extra_feat"),
+        ("eval_extra_feat.csv", "../../dataset/eval_data/extra_feat"),
         ("val_extra_feat.csv", "../../dataset/val1_scere_data/extra_feat")
     ]
 
